@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Performance — Sachin Desai</title>
+  <link rel="stylesheet" href="style.css?v=20260718b" />
+  <style>
+    .project-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 3rem;
+      max-width: 1100px;
+      margin: 0 auto 3.5rem;
+      padding: 0 2rem;
+    }
+    .project-row:nth-child(even) { flex-direction: row-reverse; }
+    .project-info { flex: 1; padding-top: 0.5rem; }
+    .project-info h3 { font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem; }
+    .project-info h3 span { font-size: 0.95rem; font-weight: 400; color: var(--muted); }
+    .project-info ul { list-style: disc; padding-left: 1.2rem; color: #aaa; font-size: 0.93rem; line-height: 1.85; margin-top: 0.8rem; }
+    .project-info ul li { margin-bottom: 0.4rem; }
+    .btn-group { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.4rem; }
+    .watch-link { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--accent); font-size: 0.88rem; font-weight: 600; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; padding: 0.5rem 0; }
+    .watch-link:hover { border-bottom-color: var(--accent); }
+    .project-video { flex: 1.6; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: #000; position: relative; cursor: pointer; }
+    .project-video img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s, opacity 0.3s; }
+    .project-video:hover img { transform: scale(1.03); opacity: 0.75; }
+    .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; background: rgba(0,0,0,0.7); border-radius: 50%; display: flex; align-items: center; justify-content: center; pointer-events: none; transition: background 0.2s, transform 0.2s; }
+    .project-video:hover .play-btn { background: #ff0000; transform: translate(-50%, -50%) scale(1.1); }
+    .play-btn::after { content: ''; display: block; width: 0; height: 0; border-style: solid; border-width: 11px 0 11px 20px; border-color: transparent transparent transparent #fff; margin-left: 4px; }
+    .project-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block; border: none; }
+    .project-video.portrait { flex: 0 0 320px; aspect-ratio: 9/16; max-height: 560px; }
+    @media (max-width: 768px) {
+      .project-row, .project-row:nth-child(even) { flex-direction: column; gap: 1.2rem; margin-bottom: 3rem; }
+      .project-video.portrait { flex: none; width: 100%; max-width: 280px; margin: 0 auto; }
+    }
+  </style>
+</head>
+<body data-title-en="Performance — Sachin Desai" data-title-ja="パフォーマンス — Sachin Desai">
+
+  <nav>
+    <a href="index.html" class="nav-brand">
+      <img src="images/header_profile.jpg" alt="Sachin Desai">
+      <div>
+        <span>Sachin Desai</span>
+        <small style="display:block;font-size:0.7rem;font-weight:400;" class="nav-brand-subtitle" data-en="Technical Animator · Technical Art" data-ja="テクニカルアニメーター・テクニカルアート">Technical Animator · Technical Art</small>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html"><span data-en="About Me" data-ja="私について">About Me</span></a></li>
+      <li><a href="rigging-pipeline.html"><span data-en="Rigging &amp; Pipeline" data-ja="リギング &amp; パイプライン">Rigging &amp; Pipeline</span></a></li>
+      <li><a href="performance.html" class="active"><span data-en="Performance" data-ja="パフォーマンス">Performance</span></a></li>
+      <li><a href="animation.html"><span data-en="Animation" data-ja="アニメーション">Animation</span></a></li>
+      <li><a href="shader.html"><span data-en="Shader" data-ja="シェーダー">Shader</span></a></li>
+      <li><a href="vfx.html"><span data-en="VFX" data-ja="VFX">VFX</span></a></li>
+      <li><a href="ui.html"><span data-en="UI" data-ja="UI">UI</span></a></li>
+    </ul>
+    <div class="lang-switcher">
+      <button class="lang-btn lang-btn--active" data-lang="en" aria-pressed="true">EN</button>
+      <span class="lang-sep">/</span>
+      <button class="lang-btn" data-lang="ja" aria-pressed="false">日本語</button>
+    </div>
+    <div class="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <div class="project-row" style="margin-top:2rem;">
+    <div class="project-info">
+      <h3><span data-en="VAT vs Skinned Mesh" data-ja="VAT vs スキンメッシュ">VAT vs Skinned Mesh</span> <span data-en="— Unity, ShaderGraph" data-ja="— Unity、ShaderGraph">— Unity, ShaderGraph</span></h3>
+      <ul>
+        <li data-en="Vertex Animation Textures (VAT) baked directly in Unity ShaderGraph" data-ja="Unity ShaderGraphに直接ベイクしたVertex Animation Textures（VAT）">Vertex Animation Textures (VAT) baked directly in Unity ShaderGraph</li>
+        <li data-en="Comparison between VAT and standard skinned mesh rendering performance" data-ja="VATと標準スキンメッシュレンダリングのパフォーマンス比較">Comparison between VAT and standard skinned mesh rendering performance</li>
+        <li data-en="VAT removes CPU skinning overhead, ideal for large crowds" data-ja="VATはCPUスキニングのオーバーヘッドを排除、大規模なクラウドに最適">VAT removes CPU skinning overhead, ideal for large crowds</li>
+        <li data-en="Fully GPU-driven — scales to hundreds of instances at no extra CPU cost" data-ja="完全GPU駆動 — 追加CPUコストなしで数百インスタンスにスケール">Fully GPU-driven — scales to hundreds of instances at no extra CPU cost</li>
+      </ul>
+      <div class="btn-group">
+        <a href="https://youtu.be/yk0OhAeyOS8" target="_blank" class="watch-link" data-en="▶ Watch on YouTube" data-ja="▶ YouTubeで見る">▶ Watch on YouTube</a>
+      </div>
+    </div>
+    <div class="project-video portrait" onclick="playVideo(this,'yk0OhAeyOS8')">
+      <img src="https://img.youtube.com/vi/yk0OhAeyOS8/maxresdefault.jpg" alt="VAT vs Skinned" onerror="this.src='https://img.youtube.com/vi/yk0OhAeyOS8/hqdefault.jpg'">
+      <div class="play-btn"></div>
+    </div>
+  </div>
+
+  <div class="project-row">
+    <div class="project-info">
+      <h3><span data-en="Shadow Types Comparison" data-ja="シャドウタイプ比較">Shadow Types Comparison</span> <span data-en="— Unity, URP" data-ja="— Unity、URP">— Unity, URP</span></h3>
+      <ul>
+        <li data-en="Deep dive into Unity URP shadow types: Hard, Soft and PCSS" data-ja="Unity URPのシャドウタイプを詳細比較: ハード、ソフト、PCSS">Deep dive into Unity URP shadow types: Hard, Soft and PCSS</li>
+        <li data-en="Performance profiling with GPU frame time breakdowns" data-ja="GPUフレームタイムの詳細ブレークダウンによるパフォーマンスプロファイリング">Performance profiling with GPU frame time breakdowns</li>
+        <li data-en="Visual quality vs render cost tradeoff for mobile and PC targets" data-ja="モバイルおよびPCターゲットにおける画質とレンダリングコストのトレードオフ">Visual quality vs render cost tradeoff for mobile and PC targets</li>
+        <li data-en="Practical recommendations for shipped game projects" data-ja="出荷済みゲームプロジェクトへの実践的な推奨事項">Practical recommendations for shipped game projects</li>
+      </ul>
+      <div class="btn-group">
+        <a href="https://youtu.be/sWGlVc7WvfY" target="_blank" class="watch-link" data-en="▶ Watch on YouTube" data-ja="▶ YouTubeで見る">▶ Watch on YouTube</a>
+      </div>
+    </div>
+    <div class="project-video portrait" onclick="playVideo(this,'sWGlVc7WvfY')">
+      <img src="https://img.youtube.com/vi/sWGlVc7WvfY/maxresdefault.jpg" alt="Shadow Types" onerror="this.src='https://img.youtube.com/vi/sWGlVc7WvfY/hqdefault.jpg'">
+      <div class="play-btn"></div>
+    </div>
+  </div>
+
+  <div class="project-row">
+    <div class="project-info">
+      <h3><span data-en="Projectile Pooling" data-ja="プロジェクタイルプーリング">Projectile Pooling</span> <span data-en="— Unity, C#" data-ja="— Unity、C#">— Unity, C#</span></h3>
+      <ul>
+        <li data-en="Object pooling system for high-volume projectiles in Unity" data-ja="Unityで大量プロジェクタイルを扱うオブジェクトプーリングシステム">Object pooling system for high-volume projectiles in Unity</li>
+        <li data-en="Eliminates GC allocations from Instantiate/Destroy calls per frame" data-ja="フレームごとのInstantiate/Destroy呼び出しによるGCアロケーションを排除">Eliminates GC allocations from Instantiate/Destroy calls per frame</li>
+        <li data-en="Profiler comparison: before and after pool implementation" data-ja="プールの実装前後のプロファイラー比較">Profiler comparison: before and after pool implementation</li>
+        <li data-en="Scales to 500+ simultaneous projectiles with stable frame rate" data-ja="安定したフレームレートで500以上の同時プロジェクタイルにスケール">Scales to 500+ simultaneous projectiles with stable frame rate</li>
+      </ul>
+      <div class="btn-group">
+        <a href="https://youtu.be/QegEDLZ1gK0" target="_blank" class="watch-link" data-en="▶ Watch on YouTube" data-ja="▶ YouTubeで見る">▶ Watch on YouTube</a>
+      </div>
+    </div>
+    <div class="project-video portrait" onclick="playVideo(this,'QegEDLZ1gK0')">
+      <img src="https://img.youtube.com/vi/QegEDLZ1gK0/maxresdefault.jpg" alt="Projectile Pooling" onerror="this.src='https://img.youtube.com/vi/QegEDLZ1gK0/hqdefault.jpg'">
+      <div class="play-btn"></div>
+    </div>
+  </div>
+
+  <div class="project-row">
+    <div class="project-info">
+      <h3><span data-en="Character LODs" data-ja="キャラクターLOD">Character LODs</span> <span data-en="— Unity, Maya" data-ja="— Unity、Maya">— Unity, Maya</span></h3>
+      <ul>
+        <li data-en="Full LOD chain setup for a playable character in Unity" data-ja="Unityのプレイアブルキャラクター向けフルLODチェーンセットアップ">Full LOD chain setup for a playable character in Unity</li>
+        <li data-en="Mesh optimized in Maya: LOD0 (high), LOD1 (mid), LOD2 (low), billboard" data-ja="Mayaでメッシュを最適化: LOD0（高）、LOD1（中）、LOD2（低）、ビルボード">Mesh optimized in Maya: LOD0 (high), LOD1 (mid), LOD2 (low), billboard</li>
+        <li data-en="Automated LOD switching using Unity LODGroup component" data-ja="Unity LODGroupコンポーネントを使用した自動LOD切り替え">Automated LOD switching using Unity LODGroup component</li>
+        <li data-en="Profiler results: 40% GPU savings at mid-range distance" data-ja="プロファイラー結果: 中距離でGPUを40%削減">Profiler results: 40% GPU savings at mid-range distance</li>
+      </ul>
+      <div class="btn-group">
+        <a href="https://youtu.be/5exRgwnHTtI" target="_blank" class="watch-link" data-en="▶ Watch on YouTube" data-ja="▶ YouTubeで見る">▶ Watch on YouTube</a>
+      </div>
+    </div>
+    <div class="project-video portrait" onclick="playVideo(this,'5exRgwnHTtI')">
+      <img src="https://img.youtube.com/vi/5exRgwnHTtI/maxresdefault.jpg" alt="Character LODs" onerror="this.src='https://img.youtube.com/vi/5exRgwnHTtI/hqdefault.jpg'">
+      <div class="play-btn"></div>
+    </div>
+  </div>
+
+  <div class="project-row">
+    <div class="project-info">
+      <h3><span data-en="Animator vs Playables API" data-ja="Animator vs Playables API">Animator vs Playables API</span> <span data-en="— Unity, C#" data-ja="— Unity、C#">— Unity, C#</span></h3>
+      <ul>
+        <li data-en="Performance comparison: Unity Animator Controller vs Playables API" data-ja="パフォーマンス比較: Unity AnimatorControllerとPlayables API">Performance comparison: Unity Animator Controller vs Playables API</li>
+        <li data-en="Playables bypasses the Animator state machine overhead" data-ja="PlayablesはAnimatorのステートマシンオーバーヘッドをバイパス">Playables bypasses the Animator state machine overhead</li>
+        <li data-en="Profiler data: CPU ms savings on 50+ character scenes" data-ja="プロファイラーデータ: 50以上のキャラクターシーンでCPU ms削減">Profiler data: CPU ms savings on 50+ character scenes</li>
+        <li data-en="Tradeoffs: flexibility vs setup cost — when to use each" data-ja="トレードオフ: 柔軟性とセットアップコスト — それぞれの使い分け">Tradeoffs: flexibility vs setup cost — when to use each</li>
+      </ul>
+      <div class="btn-group">
+        <a href="https://youtu.be/Gf1ZEQB2tnE" target="_blank" class="watch-link" data-en="▶ Watch on YouTube" data-ja="▶ YouTubeで見る">▶ Watch on YouTube</a>
+      </div>
+    </div>
+    <div class="project-video portrait" onclick="playVideo(this,'Gf1ZEQB2tnE')">
+      <img src="https://img.youtube.com/vi/Gf1ZEQB2tnE/maxresdefault.jpg" alt="Animator vs Playables" onerror="this.src='https://img.youtube.com/vi/Gf1ZEQB2tnE/hqdefault.jpg'">
+      <div class="play-btn"></div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 Sachin Desai &nbsp;·&nbsp;
+    <a href="https://www.linkedin.com/in/sachindesai7" target="_blank">LinkedIn</a>
+    &nbsp;·&nbsp;
+    <a href="index.html" data-en="Contact" data-ja="お問い合わせ">Contact</a>
+  </footer>
+
+  <script src="i18n.js?v=20260718"></script>
+  <script>
+    function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+    document.querySelectorAll('.nav-links a').forEach(function(link) {
+      link.addEventListener('click', function() { document.getElementById('navLinks').classList.remove('open'); });
+    });
+    document.addEventListener('click', function(e) {
+      var nav = document.getElementById('navLinks');
+      var hamburger = document.querySelector('.hamburger');
+      if (!nav.contains(e.target) && !hamburger.contains(e.target)) nav.classList.remove('open');
+    });
+    function playVideo(el, videoId) {
+      el.innerHTML = '<iframe src="https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0&modestbranding=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+      el.style.cursor = 'default';
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.innerWidth <= 768) return;
+      document.querySelectorAll('.project-video[onclick]').forEach(function(el) {
+        var match = el.getAttribute('onclick').match(/'([^']+)'\)/);
+        if (!match) return;
+        var videoId = match[1];
+        el.innerHTML = '<iframe src="https://www.youtube.com/embed/' + videoId + '?autoplay=1&mute=1&loop=1&playlist=' + videoId + '&controls=1&rel=0&modestbranding=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+        el.style.cursor = 'default';
+      });
+    });
+  </script>
+</body>
+</html>

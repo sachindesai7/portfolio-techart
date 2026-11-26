@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shader — Sachin Desai</title>
+  <link rel="stylesheet" href="style.css?v=20260718b" />
+  <style>
+    .project-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 3rem;
+      max-width: 1100px;
+      margin: 0 auto 3.5rem;
+      padding: 0 2rem;
+    }
+    .project-row:nth-child(even) { flex-direction: row-reverse; }
+    .project-info { flex: 1; padding-top: 0.5rem; }
+    .project-info h3 { font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem; }
+    .project-info h3 span { font-size: 0.95rem; font-weight: 400; color: var(--muted); }
+    .project-info ul { list-style: disc; padding-left: 1.2rem; color: #aaa; font-size: 0.93rem; line-height: 1.85; margin-top: 0.8rem; }
+    .project-info ul li { margin-bottom: 0.4rem; }
+    .btn-group { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.4rem; }
+    .watch-link { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--accent); font-size: 0.88rem; font-weight: 600; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; padding: 0.5rem 0; }
+    .watch-link:hover { border-bottom-color: var(--accent); }
+    .project-video { flex: 1.6; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: #000; position: relative; cursor: pointer; }
+    .project-video img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s, opacity 0.3s; }
+    .project-video:hover img { transform: scale(1.03); opacity: 0.75; }
+    .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; background: rgba(0,0,0,0.7); border-radius: 50%; display: flex; align-items: center; justify-content: center; pointer-events: none; transition: background 0.2s, transform 0.2s; }
+    .project-video:hover .play-btn { background: #ff0000; transform: translate(-50%, -50%) scale(1.1); }
+    .play-btn::after { content: ''; display: block; width: 0; height: 0; border-style: solid; border-width: 11px 0 11px 20px; border-color: transparent transparent transparent #fff; margin-left: 4px; }
+    .project-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block; border: none; }
+    .project-video.portrait { flex: 0 0 320px; aspect-ratio: 9/16; max-height: 560px; }
+    @media (max-width: 768px) {
+      .project-row, .project-row:nth-child(even) { flex-direction: column; gap: 1.2rem; margin-bottom: 3rem; }
+      .project-video.portrait { flex: none; width: 100%; max-width: 280px; margin: 0 auto; }
+    }
+  </style>
+</head>
+<body data-title-en="Shader — Sachin Desai" data-title-ja="シェーダー — Sachin Desai">
+
+  <nav>
+    <a href="index.html" class="nav-brand">
+      <img src="images/header_profile.jpg" alt="Sachin Desai">
+      <div>
+        <span>Sachin Desai</span>
+        <small style="display:block;font-size:0.7rem;font-weight:400;" class="nav-brand-subtitle" data-en="Technical Animator · Technical Art" data-ja="テクニカルアニメーター・テクニカルアート">Technical Animator · Technical Art</small>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html"><span data-en="About Me" data-ja="私について">About Me</span></a></li>
+      <li><a href="rigging-pipeline.html"><span data-en="Rigging &amp; Pipeline" data-ja="リギング &amp; パイプライン">Rigging &amp; Pipeline</span></a></li>
+      <li><a href="performance.html"><span data-en="Performance" data-ja="パフォーマンス">Performance</span></a></li>
+      <li><a href="animation.html"><span data-en="Animation" data-ja="アニメーション">Animation</span></a></li>
+      <li><a href="shader.html" class="active"><span data-en="Shader" data-ja="シェーダー">Shader</span></a></li>
+      <li><a href="vfx.html"><span data-en="VFX" data-ja="VFX">VFX</span></a></li>
+      <li><a href="ui.html"><span data-en="UI" data-ja="UI">UI</span></a></li>
+    </ul>
+    <div class="lang-switcher">
+      <button class="lang-btn lang-btn--active" data-lang="en" aria-pressed="true">EN</button>
+      <span class="lang-sep">/</span>
+      <button class="lang-btn" data-lang="ja" aria-pressed="false">日本語</button>
+    </div>
+    <div class="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <div class="project-row" style="margin-top:2rem;">
+    <div class="project-info">
+      <h3><span data-en="Earth Shader" data-ja="アースシェーダー">Earth Shader</span> <span data-en="— Unity, ShaderGraph" data-ja="— Unity、ShaderGraph">— Unity, ShaderGraph</span></h3>
+      <ul>
+        <li data-en="Stylized Earth shader built entirely in Unity ShaderGraph" data-ja="Unity ShaderGraphだけで制作したスタイライズドアースシェーダー">Stylized Earth shader built entirely in Unity ShaderGraph</li>
+        <li data-en="Procedural day/night cycle with atmosphere rim lighting" data-ja="大気のリムライティングを備えたプロシージャルな昼夜サイクル">Procedural day/night cycle with atmosphere rim lighting</li>
+        <li data-en="City lights layer blends in automatically on dark side" data-ja="暗い側に自動でブレンドする都市の光レイヤー">City lights layer blends in automatically on dark side</li>
+        <li data-en="Fully parameterized — art-directable from Inspector without code" data-ja="完全パラメータ化 — コードなしでインスペクターからアートディレクション可能">Fully parameterized — art-directable from Inspector without code</li>
+      </ul>
+      <div class="btn-group">
+        <a href="https://youtu.be/IGj1AsW-t6E" target="_blank" class="watch-link" data-en="▶ Watch on YouTube" data-ja="▶ YouTubeで見る">▶ Watch on YouTube</a>
+      </div>
+    </div>
+    <div class="project-video portrait" onclick="playVideo(this,'IGj1AsW-t6E')">
+      <img src="https://img.youtube.com/vi/IGj1AsW-t6E/maxresdefault.jpg" alt="Earth Shader" onerror="this.src='https://img.youtube.com/vi/IGj1AsW-t6E/hqdefault.jpg'">
+      <div class="play-btn"></div>
+    </div>
+  </div>
+
+  <div class="project-row">
+    <div class="project-info">
+      <h3><span data-en="Dissolve Shader" data-ja="ディゾルブシェーダー">Dissolve Shader</span> <span data-en="— Unity, ShaderGraph" data-ja="— Unity、ShaderGraph">— Unity、ShaderGraph">— Unity, ShaderGraph</span></h3>
+      <ul>
+        <li data-en="Noise-based dissolve effect with glowing edge emission" data-ja="発光エッジエミッションを備えたノイズベースのディゾルブエフェクト">Noise-based dissolve effect with glowing edge emission</li>
+        <li data-en="Controls: dissolve amount, edge width, edge color and emission intensity" data-ja="コントロール: ディゾルブ量、エッジ幅、エッジカラー、エミッション強度">Controls: dissolve amount, edge width, edge color and emission intensity</li>
+        <li data-en="Works on any mesh — skinned characters, props, terrain" data-ja="スキンキャラクター、プロップ、地形など任意のメッシュで動作">Works on any mesh — skinned characters, props, terrain</li>
+        <li data-en="Used for death VFX, portal effects and loot spawns in production" data-ja="プロダクションでデス演出、ポータルエフェクト、ルートスポーンに使用">Used for death VFX, portal effects and loot spawns in production</li>
+      </ul>
+      <div class="btn-group">
+        <a href="https://youtu.be/TC2OUabSkMs" target="_blank" class="watch-link" data-en="▶ Watch on YouTube" data-ja="▶ YouTubeで見る">▶ Watch on YouTube</a>
+      </div>
+    </div>
+    <div class="project-video portrait" onclick="playVideo(this,'TC2OUabSkMs')">
+      <img src="https://img.youtube.com/vi/TC2OUabSkMs/maxresdefault.jpg" alt="Dissolve Shader" onerror="this.src='https://img.youtube.com/vi/TC2OUabSkMs/hqdefault.jpg'">
+      <div class="play-btn"></div>
+    </div>
+  </div>
+
+  <div class="project-row">
+    <div class="project-info">
+      <h3><span data-en="Planar Shadow" data-ja="プラナーシャドウ">Planar Shadow</span> <span data-en="— Unity, HLSL" data-ja="— Unity、HLSL">— Unity, HLSL</span></h3>
+      <ul>
+        <li data-en="Custom planar shadow shader for mobile-friendly shadow rendering" data-ja="モバイルフレンドリーなシャドウレンダリング向けカスタムプラナーシャドウシェーダー">Custom planar shadow shader for mobile-friendly shadow rendering</li>
+        <li data-en="Bypasses Unity's shadow map system — zero shadow map cost" data-ja="Unityのシャドウマップシステムをバイパスすることでシャドウマップコストをゼロに">Bypasses Unity's shadow map system — zero shadow map cost</li>
+        <li data-en="Stencil buffer prevents shadow overdraw on flat surfaces" data-ja="ステンシルバッファでフラットサーフェスのシャドウオーバードローを防止">Stencil buffer prevents shadow overdraw on flat surfaces</li>
+        <li data-en="Ideal for top-down and isometric mobile games with ground planes" data-ja="グランドプレーンを持つ見下ろし型・アイソメトリックモバイルゲームに最適">Ideal for top-down and isometric mobile games with ground planes</li>
+      </ul>
+      <div class="btn-group">
+        <a href="https://youtu.be/mWtvrbhFCRg" target="_blank" class="watch-link" data-en="▶ Watch on YouTube" data-ja="▶ YouTubeで見る">▶ Watch on YouTube</a>
+      </div>
+    </div>
+    <div class="project-video portrait" onclick="playVideo(this,'mWtvrbhFCRg')">
+      <img src="https://img.youtube.com/vi/mWtvrbhFCRg/maxresdefault.jpg" alt="Planar Shadow" onerror="this.src='https://img.youtube.com/vi/mWtvrbhFCRg/hqdefault.jpg'">
+      <div class="play-btn"></div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 Sachin Desai &nbsp;·&nbsp;
+    <a href="https://www.linkedin.com/in/sachindesai7" target="_blank">LinkedIn</a>
+    &nbsp;·&nbsp;
+    <a href="index.html" data-en="Contact" data-ja="お問い合わせ">Contact</a>
+  </footer>
+
+  <script src="i18n.js?v=20260718"></script>
+  <script>
+    function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+    document.querySelectorAll('.nav-links a').forEach(function(link) {
+      link.addEventListener('click', function() { document.getElementById('navLinks').classList.remove('open'); });
+    });
+    document.addEventListener('click', function(e) {
+      var nav = document.getElementById('navLinks');
+      var hamburger = document.querySelector('.hamburger');
+      if (!nav.contains(e.target) && !hamburger.contains(e.target)) nav.classList.remove('open');
+    });
+    function playVideo(el, videoId) {
+      el.innerHTML = '<iframe src="https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0&modestbranding=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+      el.style.cursor = 'default';
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.innerWidth <= 768) return;
+      document.querySelectorAll('.project-video[onclick]').forEach(function(el) {
+        var match = el.getAttribute('onclick').match(/'([^']+)'\)/);
+        if (!match) return;
+        var videoId = match[1];
+        el.innerHTML = '<iframe src="https://www.youtube.com/embed/' + videoId + '?autoplay=1&mute=1&loop=1&playlist=' + videoId + '&controls=1&rel=0&modestbranding=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+        el.style.cursor = 'default';
+      });
+    });
+  </script>
+</body>
+</html>
